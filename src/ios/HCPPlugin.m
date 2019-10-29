@@ -106,6 +106,10 @@ static NSString *const DEFAULT_STARTING_PAGE = @"index.html";
         _pluginInternalPrefs.currentReleaseVersionName = config.contentConfig.releaseVersion;
         
         [_pluginInternalPrefs saveToUserDefaults];
+        
+        // FIX problem for LOCAL_VERSION_OF_APPLICATION_CONFIG_NOT_FOUND
+        // It occurs if the folder for release version from shared preferences does not exist in data CHCP path
+        _filesStructure = [[HCPFilesStructure alloc] initWithReleaseVersion:_pluginInternalPrefs.currentReleaseVersionName];
     }
     
     [HCPAssetsFolderHelper installWwwFolderToExternalStorageFolder:_filesStructure.wwwFolder];
