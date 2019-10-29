@@ -592,6 +592,10 @@ public class HotCodePushPlugin extends CordovaPlugin {
             pluginInternalPrefs.setCurrentReleaseVersionName(appConfig.getContentConfig().getReleaseVersion());
 
             pluginInternalPrefsStorage.storeInPreference(pluginInternalPrefs);
+            
+            // FIX problem for LOCAL_VERSION_OF_APPLICATION_CONFIG_NOT_FOUND
+            // It occurs if the folder for release version from shared preferences does not exist in data CHCP path
+            fileStructure.switchToRelease(pluginInternalPrefs.getCurrentReleaseVersionName());
         }
 
         AssetsHelper.copyAssetDirectoryToAppDirectory(cordova.getActivity().getApplicationContext(), WWW_FOLDER, fileStructure.getWwwFolder());
